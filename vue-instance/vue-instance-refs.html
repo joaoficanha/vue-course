@@ -1,0 +1,30 @@
+<meta charset="UTF-8" />
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+  <h1 ref="lectureRef">{{lecture}}</h1>
+  <h2>{{module}}</h2>
+  <button @click="changeLecture">Change lecture</button>
+  <button @click="changeModule">Change module</button>
+</div>
+
+<script>
+  const vm = new Vue({
+    el: "#app",
+    data: {
+      lecture: "Lecture: Using Refs",
+      module: "Module: Vue instance",
+    },
+    methods: {
+      changeLecture() {
+        this.lecture += "#";
+      },
+      changeModule() {
+        this.module += "#";
+      },
+    },
+  });
+
+  vm.$refs.lectureRef.innerText = 'Changed directly'
+</script>

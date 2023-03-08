@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <template v-if="isLoggedIn">
+        <p>Logged user: {{ name }}</p>
+        <p>Profile: Admin</p>
+    </template>
+    
+    <p v-else-if="incognito">Incognito mode</p>
+    <p v-else>No user logged in</p>
+    <button @click="isLoggedIn = !isLoggedIn">
+        {{isLoggedIn ? 'Logout' : 'Login'}}
+    </button>
+    <input type="checkbox" v-model="incognito"/>
+    <hr>
+    <footer v-show="isLoggedIn">
+        Made for you admin!!
+    </footer>
+    <footer v-show="!isLoggedIn">
+        Made for you!!
+    </footer>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            name: 'John Doe',
+            isLoggedIn: false,
+            incognito: false
+        }
+    })
+</script>

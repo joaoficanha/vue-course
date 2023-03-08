@@ -1,0 +1,37 @@
+<meta charset="UTF-8" />
+
+<div id="app">{{ name }} {{ surName }} {{ 7 * 2 }} {{Math.pow(3, 2)}}</div>
+
+<script>
+  function MyVue(params) {
+    this.$el = document.querySelector(params.el);
+    this.$data = params.data;
+
+    for (let attr in this.$data) {
+      Object.defineProperty(this, attr, {
+        get: () => {
+          return this.$data[attr];
+        },
+        set: (value) => {
+          this.$data[attr] = value;
+        },
+      });
+    }
+
+    const regex = /\{\{([\s\w)(,.+*-]*)\}\}/g;
+
+    this.$el.innerHTML = this.$el.innerHTML.replace(regex, (match, $1) => {
+      const value = this[$1.trim()];
+
+      return value ? value : eval($1);
+    });
+  }
+
+  new MyVue({
+    el: "#app",
+    data: {
+      name: "John",
+      surName: "Doe",
+    },
+  });
+</script>

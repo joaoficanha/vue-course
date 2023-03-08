@@ -1,0 +1,32 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+   <button v-on:click="increase">Increase</button>
+   <button v-on:click="counterTwo++">Increase 2</button>
+   <button v-on:click="decrease">Decrease</button>
+   <p>Counter: {{ counter }} | {{ counterTwo }}</p>
+   <p>Result: {{ result }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            counterTwo: 0,
+        },
+        computed: {
+            result() {
+                return this.counter > 5 ? 'Counter is bigger than 5' : 'Counter is smallest than 5';
+            }
+        },
+        methods: {
+            increase() {
+                this.counter++
+            },
+            decrease() {
+                this.counter--
+            }
+        }
+    })
+</script>

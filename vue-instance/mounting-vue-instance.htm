@@ -1,0 +1,35 @@
+<meta charset="UTF-8" />
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app"></div>
+
+<script>
+  const vm = new Vue({
+    // el: "#app",
+    template: `
+    <div>
+        <h1>{{lecture}}</h1>
+        <h2>{{module}}</h2>
+        <button @click="changeLecture">Change lecture</button>
+        <button @click="changeModule">Change module</button>
+    </div>
+    `,
+    data: {
+      lecture: "Lecture: Mounting Vue Instance",
+      module: "Module: Vue instance",
+    },
+    methods: {
+      changeLecture() {
+        this.lecture += "#";
+      },
+      changeModule() {
+        this.module += "#";
+      },
+    },
+  });
+
+  //   vm.$mount("#app");
+  vm.$mount();
+  document.querySelector("#app").appendChild(vm.$el);
+</script>

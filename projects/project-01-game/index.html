@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Project 01</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="panel scores">
+        <div class="score">
+          <h1>Player</h1>
+          <div class="life-bar">
+            <div
+              class="life"
+              :class="{danger: playerLife < 20}"
+              :style="{width: `${playerLife}%`}"
+            ></div>
+          </div>
+          <div>{{ playerLife }}%</div>
+        </div>
+        <div class="score">
+          <h1>PC</h1>
+          <div class="life-bar">
+            <div
+              class="life"
+              :class="{danger: pcLife < 20}"
+              :style="{width: `${pcLife}%`}"
+            ></div>
+          </div>
+          <div>{{ pcLife }}%</div>
+        </div>
+      </div>
+
+      <div v-if="hasResult" class="panel result">
+        <div v-if="playerLife > 0" class="win">You Won!!! :)</div>
+        <div v-else class="lose">Yow Lose! :(</div>
+      </div>
+
+      <div class="panel buttons">
+        <template v-if="running">
+          <button class="btn attack" @click="handleAttack">Attack</button>
+          <button class="btn especial-attack" @click="handleAttack(true)">Especial Attack</button>
+          <button class="btn heal" @click="healAndAttack">Heal</button>
+          <button class="btn give-up" @click="resetGame">Give Up</button>
+        </template>
+
+        <button class="btn new-game" @click="startGame" v-else>New Game</button>
+      </div>
+
+      <div v-show="logs.length > 0" class="panel logs">
+        <ul>
+          <li v-for="log in logs" class="log" :class="log.cls">
+            {{ log.text }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
