@@ -7,7 +7,7 @@ import "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
-Vue.filter("currency", function(value) {
+Vue.filter("currency", (value) => { 
   return `$${value.toLocaleString()}`;
 });
 
