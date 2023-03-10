@@ -4,7 +4,7 @@ import axios from "axios";
 Vue.use({
   install(Vue) {
     Vue.prototype.$http = axios.create({
-      baseURL: "https://stock-trader-dabb4-default-rtdb.firebaseio.com/",
+      baseURL: "FIREBASE_URL",
     });
   },
 });
