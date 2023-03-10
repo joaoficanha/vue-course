@@ -43,7 +43,8 @@ export default {
   getters: {
     boughtStocks(state, getters) {
       return state.stocks.map((stock) => {
-        const record = getters.stocks.find((stock) => stock.id == stock.id);
+        const record = getters.stocks.find((s) => s.id == stock.id);
+
         return {
           id: stock.id,
           quantity: stock.quantity,
