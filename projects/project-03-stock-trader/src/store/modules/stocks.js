@@ -24,6 +24,9 @@ export default {
     randomizeStocks(context) {
       context.commit("randomizeStocks");
     },
+    setStocks(context, payload) {
+      context.commit("setStocks", payload);
+    },
   },
   getters: {
     stocks(state) {

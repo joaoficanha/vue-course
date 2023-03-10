@@ -17,7 +17,7 @@ export default {
       }
     },
     sellStock(state, payload) {
-      const record = state.stocks.find((element) => element.id == payload.id);
+      const record = state.stocks.find((stock) => stock.id == payload.id);
 
       if (record.quantity > payload.quantity) {
         record.quantity -= payload.quantity;
@@ -27,7 +27,7 @@ export default {
 
       state.balance += payload.price * payload.quantity;
     },
-    setPortfolioStocks(state, payload) {
+    setPortfolio(state, payload) {
       state.balance = payload.balance;
       state.stocks = payload.stocks;
     },
@@ -36,11 +36,14 @@ export default {
     sellStock(context, payload) {
       context.commit("sellStock", payload);
     },
+    setPortfolio(context, payload) {
+      context.commit("setPortfolio", payload);
+    },
   },
   getters: {
-    stockPortfolio(state, getters) {
+    boughtStocks(state, getters) {
       return state.stocks.map((stock) => {
-        const record = getters.stocks.find((element) => element.id == stock.id);
+        const record = getters.stocks.find((stock) => stock.id == stock.id);
         return {
           id: stock.id,
           quantity: stock.quantity,

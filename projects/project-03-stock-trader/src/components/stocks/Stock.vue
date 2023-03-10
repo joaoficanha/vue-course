@@ -10,7 +10,7 @@
                 <v-text-field :error="insufficientBalance" label="Quantity" type="number" v-model.number="quantity" />
                 <v-btn 
                   @click="buyStock"
-                  :disabled="quantity < 0 || insufficientBalance" 
+                  :disabled="isButtonDisabled" 
                   class="green darken-3 white--text"
                 >
                   {{ insufficientBalance ? 'Insufficient' : 'Buy' }}
@@ -39,6 +39,9 @@ export default {
     },
     insufficientBalance() {
       return this.quantity * this.stock.price > this.balance;
+    },
+    isButtonDisabled() {
+      return this.quantity < 0 || this.insufficientBalance;
     },
   },
   methods: {

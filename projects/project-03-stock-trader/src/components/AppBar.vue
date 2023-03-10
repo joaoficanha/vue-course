@@ -42,9 +42,24 @@ export default {
     },
   },
   methods: {
-    closeDay() {},
-    saveData() {},
-    loadData() {},
+    closeDay() {
+      this.$store.dispatch("randomizeStocks");
+    },
+    saveData() {
+      const { balance, boughtStocks, stocks } = this.$store.getters;
+      this.$http.put("data.json", { balance, boughtStocks, stocks });
+    },
+    loadData() {
+      this.$http.get("data.json").then((response) => {
+        if (response.data) {
+          this.$store.dispatch("setStocks", response.data.stocks);
+          this.$store.dispatch("setPortfolio", {
+            balance: response.data.balance,
+            stocks: response.data.boughtStocks,
+          });
+        }
+      });
+    },
   },
 };
 </script>

@@ -12,14 +12,14 @@
             <v-card>
             <v-container fill-height>
                 <v-text-field 
-                  :error="insufficientQuantity || !Number.isInteger(quantity)"
+                  :error="isTextFieldDisabled"
                   label="Quantity" 
                   type="number" 
                   v-model.number="quantity" 
                 />
                 <v-btn 
                   @click="sellStock"
-                  :disabled="insufficientQuantity || quantity <= 0 || !Number.isInteger(quantity)"
+                  :disabled="isButtonDisabled"
                   class="blue darken-3 white--text"
                 >
                 {{ insufficientQuantity ? 'Insufficient' : 'Sell'}}
@@ -45,6 +45,16 @@ export default {
   computed: {
     insufficientQuantity() {
       return this.quantity > this.stock.quantity;
+    },
+    isTextFieldDisabled() {
+      return this.insufficientQuantity || !Number.isInteger(this.quantity);
+    },
+    isButtonDisabled() {
+      return (
+        this.insufficientQuantity ||
+        this.quantity <= 0 ||
+        !Number.isInteger(this.quantity)
+      );
     },
   },
   methods: {

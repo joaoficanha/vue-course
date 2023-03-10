@@ -11,7 +11,7 @@ export default {
   components: { PortfolioItem },
   computed: {
     stocks() {
-      return this.$store.getters.stockPortfolio;
+      return this.$store.getters.boughtStocks;
     },
   },
 };
