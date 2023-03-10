@@ -15,7 +15,7 @@
         <v-toolbar-items>
             <v-btn flat @click="closeDay">Close current day</v-btn>
             <v-menu offset-y>
-                <v-btn flat slot="activator">Save & Load</v-btn>
+                <v-btn flat slot="activator">Options</v-btn>
                 <v-list>
                     <v-list-tile @click="saveData">
                         <v-list-tile-title>Save Data</v-list-tile-title>
