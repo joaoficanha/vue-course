@@ -41,7 +41,7 @@ export default {
       return this.quantity * this.stock.price > this.balance;
     },
     isButtonDisabled() {
-      return this.quantity < 0 || this.insufficientBalance;
+      return this.quantity <= 0 || this.insufficientBalance || !Number.isInteger(this.quantity);
     },
   },
   methods: {
