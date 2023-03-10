@@ -29,7 +29,7 @@ export default {
     },
     setPortfolio(state, payload) {
       state.balance = payload.balance;
-      state.stocks = payload.stocks;
+      state.stocks = payload.stocks ? payload.stocks : [];
     },
   },
   actions: {
