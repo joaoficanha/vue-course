@@ -1,9 +1,9 @@
 <template>
-  <v-footer padless>
-    <v-col class="grey lighten-2 text-right" cols="12">
-      <span>Copyright - {{ new Date().getFullYear() }}</span>
-    </v-col>
-  </v-footer>
+  <footer class="footer">
+    <span
+      >Copyright <strong>Cod3r</strong> © {{ new Date().getFullYear() }}</span
+    >
+  </footer>
 </template>
 
 <script>
@@ -12,4 +12,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.footer {
+  grid-area: footer;
+  background-color: #ddd;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+</style>

@@ -1,16 +1,16 @@
 export default {
   categories: {
-    icon: "mdi-folder",
+    icon: "fa fa-folder",
     color: "#d54d50",
     quantity: 0,
   },
   articles: {
-    icon: "mdi-file",
+    icon: "fa fa-file",
     color: "#3bc480",
     quantity: 0,
   },
   users: {
-    icon: "mdi-account",
+    icon: "fa fa-user",
     color: "#3282cd",
     quantity: 0,
   },

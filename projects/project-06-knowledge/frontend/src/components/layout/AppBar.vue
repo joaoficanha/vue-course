@@ -1,20 +1,14 @@
 <template>
-  <v-app-bar elevation="0" class="gradient" app clipped-left>
-    <v-app-bar-nav-icon
-      :ripple="false"
-      class="nav-icon"
-      @click="toggleMenu"
-      color="white"
-    ></v-app-bar-nav-icon>
-    <v-spacer></v-spacer>
-    <router-link to="/" style="text-decoration: none">
-      <v-toolbar-title class="white--text">
-        <span>{{ title }}</span>
-      </v-toolbar-title>
-    </router-link>
-    <v-spacer></v-spacer>
+  <header class="header">
+    <a class="toggle" @click="toggleMenu">
+      <i class="fa fa-lg" 
+      :class="icon"></i>
+    </a>
+    <h1 class="title">
+      <router-link to="/">{{ title }}</router-link>
+    </h1>
     <app-user-dropdown v-if="!hideDropdown" />
-  </v-app-bar>
+  </header>
 </template>
 
 <script>
@@ -32,6 +26,11 @@ export default {
       required: true,
     },
   },
+  computed: {
+    icon() {
+      return this.$store.getters.isMenuOpen ? "fa-angle-left" : "fa-angle-down";
+    },
+  },
   methods: {
     ...mapActions(["toggleMenu"]),
   },
@@ -44,16 +43,45 @@ export default {
 </script>
 
 <style>
-.gradient {
+.header {
+  grid-area: header;
   background: linear-gradient(to right, #1e469a, #49a7c1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.nav-icon {
-  position: absolute;
-  left: 0;
-  margin: 0 !important;
-  height: 100% !important;
-  width: 60px !important;
-  border-radius: unset;
+.title {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 100;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.title a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.title a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+header.header > a.toggle {
+  width: 60px;
+  height: 100%;
+  color: #fff;
+  justify-self: flex-start;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header.header > a.toggle:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>

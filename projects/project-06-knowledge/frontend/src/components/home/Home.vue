@@ -1,31 +1,17 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
-        <app-page-title
-          title="Dashboard"
-          subtitle="Knowledge Base"
-          icon="mdi-home-outline"
-        />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col v-for="(stat, name) in stats" :key="name">
-        <app-stat
-          :title="name"
-          :quantity="stat.quantity"
-          :icon="stat.icon"
-          :color="stat.color"
-        />
-      </v-col>
-    </v-row>
-  </v-container>
+    <div class="home">
+        <app-page-title title="Dashboard" subtitle="Knowledge Base" icon="fa fa-home"/>
+        <div class="stats">
+            <app-stat v-for="(stat, name) in stats" :key="name" :title="name" :quantity="stat.quantity" :icon="stat.icon" :color="stat.color"/>
+        </div>
+    </div>
 </template>
 
 <script>
-import PageTitle from "../layout/PageTitle.vue";
-import Stat from "./Stat.vue";
 import stats from "./constants/stats";
+
+import PageTitle from "../layout/PageTitle";
+import Stat from "./Stat";
 
 export default {
   name: "app-home",
@@ -52,3 +38,11 @@ export default {
   },
 };
 </script>
+
+<style>
+.stats {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+</style>

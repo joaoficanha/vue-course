@@ -1,16 +1,18 @@
 <template>
-  <v-card class="d-flex flex-row justify-space-between pa-5" rounded="lg">
-    <v-icon :color="color" size="5rem">{{ icon }}</v-icon>
-    <div class="d-flex flex-column align-end justify-space-between">
-      <span class="text-h6 font-weight-regular">{{ capitalizedTitle }}</span>
-      <span class="text-h3 font-weight-regular">{{ quantity }}</span>
+    <div class="stat">
+        <div class="stat-icon">
+            <i :class="icon" :style="{color}"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-title">{{ capitalizedTitle }}</span>
+            <span class="stat-quantity">{{ quantity }}</span>
+        </div>
     </div>
-  </v-card>
 </template>
 
 <script>
 export default {
-  name: "app-stat",
+  name: "Stat",
   props: {
     title: {
       type: String,
@@ -31,11 +33,46 @@ export default {
   },
   computed: {
     capitalizedTitle() {
-      return (
-        this.title.charAt(0).toUpperCase() +
-        this.title.slice(1, this.title.length)
-      );
+      return this.title.charAt(0).toUpperCase() + this.title.slice(1);
     },
   },
 };
 </script>
+
+<style>
+.stat {
+  flex: 1;
+  display: flex;
+  border-radius: 8px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+}
+
+.stat-icon i {
+  font-size: 5rem;
+}
+
+.stat-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.stat-title {
+  font-size: 1.2rem;
+}
+
+.stat-quantity {
+  font-size: 3rem;
+}
+</style>

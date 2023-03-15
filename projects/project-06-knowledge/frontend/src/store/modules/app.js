@@ -4,6 +4,7 @@ export default {
     user: {
       name: "John Doe",
       email: "john.doe@temp.mail",
+      admin: true
     },
   },
   getters: {

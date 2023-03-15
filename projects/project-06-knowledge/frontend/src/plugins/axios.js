@@ -4,7 +4,7 @@ import axios from "axios";
 Vue.use({
   install(Vue) {
     Vue.prototype.$http = axios.create({
-      baseURL: process.env.API_URL || "http://localhost:3000",
+      baseURL: "http://localhost:3000",
       headers: {
         //TODO remove after creating login
         common: {

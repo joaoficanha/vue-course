@@ -1,57 +1,91 @@
 <template>
-  <v-menu :offsetY="true" open-on-hover close-on-content-click>
-    <template v-slot:activator="{ on }">
-      <v-btn class="absolute" color="white" text v-on="on">
-        <span>{{ user.name }}</span>
-        <v-avatar class="mr-4 ml-4" color="white"></v-avatar>
-        <v-icon right>mdi-chevron-down</v-icon>
-      </v-btn>
-    </template>
-    <v-list dense>
-      <v-list-item
-        v-for="(item, index) in items"
-        :key="index"
-        :href="item.link"
-      >
-        <v-list-item-title>
-          <v-icon class="mr-4">
-            {{ item.icon }}
-          </v-icon>
-          {{ item.title }}
-        </v-list-item-title>
-      </v-list-item>
-    </v-list>
-  </v-menu>
+  <div class="user-dropdown">
+    <div class="user-button">
+      <span class="d-none d-sm-block">{{ user.name }}</span>
+      <div class="user-dropdown-img">
+        <app-avatar :email="user.email" alt="User" />
+      </div>
+      <i class="fa fa-angle-down"></i>
+    </div>
+    <div class="user-dropdown-content">
+      <router-link to="/admin" v-if="user.admin">
+        <i class="fa fa-cogs"></i> Administration
+      </router-link>
+      <a href @click.prevent="logout"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
+import Gravatar from "vue-gravatar";
+
 export default {
   name: "app-user-dropdown",
+  components: { "app-avatar": Gravatar },
   computed: { ...mapGetters(["user"]) },
-  data: () => ({
-    items: [
-      {
-        title: "Administration",
-        icon: "mdi-cogs",
-        link: "/admin",
-      },
-      {
-        title: "Logout",
-        icon: "mdi-logout",
-        link: "https://google.com",
-      },
-    ],
-  }),
 };
 </script>
 
 <style>
-.absolute {
-  height: 100% !important;
+.user-dropdown {
+  position: relative;
+  height: 100%;
+}
+
+.user-button {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: 100;
+  height: 100%;
+  padding: 0px 20px;
+}
+
+.user-dropdown:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-dropdown-img {
+  margin: 0px 10px;
+}
+
+.user-dropdown-img > img {
+  max-height: 37px;
+  border-radius: 5px;
+}
+
+.user-dropdown-content {
   position: absolute;
-  right: 0;
-  text-transform: none;
+  right: 0px;
+  background-color: #f9f9f9;
+  min-width: 170px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.user-dropdown-content a {
+  text-decoration: none;
+  color: #000;
+  padding: 10px;
+}
+
+.user-dropdown-content a:hover {
+  text-decoration: none;
+  color: #000;
+  background-color: #ededed;
 }
 </style>

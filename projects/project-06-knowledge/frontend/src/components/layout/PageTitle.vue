@@ -1,19 +1,8 @@
 <template>
-  <div>
-    <div>
-      <span class="text-h3">
-        <v-icon size="inherit" color="black">
-          {{ icon }}
-        </v-icon>
-        {{ title }}
-      </span>
-    </div>
-    <div class="mt-1">
-      <span class="text-h5 subtitle">
-        {{ subtitle }}
-      </span>
-    </div>
-    <v-divider class="mt-5 mb-5"></v-divider>
+  <div class="page-title">
+      <h1><i v-if="icon" :class="icon"></i> {{ title }}</h1>
+      <h2>{{ subtitle }}</h2>
+      <hr>
   </div>
 </template>
 
@@ -21,22 +10,30 @@
 export default {
   name: "app-page-title",
   props: {
-    icon: {
-      type: String,
-    },
     title: {
       type: String,
       required: true,
     },
     subtitle: {
       type: String,
+      required: true,
+    },
+    icon: {
+      type: String,
+      required: true,
     },
   },
 };
 </script>
 
 <style>
-.subtitle {
+.page-title h1 {
+  margin: 0px;
+}
+
+.page-title h2 {
   color: #777;
+  margin-top: 5px;
+  font-size: 1.3rem;
 }
 </style>
