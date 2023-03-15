@@ -8,6 +8,8 @@ import router from "./router";
 
 import "./plugins/axios";
 import "./plugins/bootstrap";
+import "./plugins/messages";
+import "./plugins/mq";
 
 Vue.config.productionTip = false;
 

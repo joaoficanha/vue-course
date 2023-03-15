@@ -11,6 +11,7 @@ module.exports = (app) => {
   //TODO passar todas as validações do objecto de usuario aqui
   const validate = (user) => {};
 
+  //TODO fix error validation
   const persist = async (req, res) => {
     const user = { ...req.body };
 

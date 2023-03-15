@@ -1,6 +1,6 @@
-import Articles from "../Articles.vue";
-import Categories from "../Categories.vue";
-import Users from "../Users.vue";
+import Articles from "../articles/Articles.vue";
+import Categories from "../categories/Categories.vue";
+import Users from "../users/Users.vue";
 
 export default [
   {

@@ -1,15 +1,62 @@
 <template>
   <aside class="menu" v-show="isMenuOpen">
+    <div class="menu-filter">
+      <i class="fa fa-search fa-lg"></i>
+      <input
+        type="text"
+        placeholder="Type to filter..."
+        v-model="treeFilter"
+        class="filter-field"
+      />
+    </div>
+    <app-nav-tree
+      :data="treeData"
+      :options="treeOptions"
+      :filter="treeFilter"
+      ref="tree"
+    />
   </aside>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+
+import LiquorTree from "liquor-tree";
 
 export default {
   name: "app-nav-bar",
+  components: { "app-nav-tree": LiquorTree },
+  data() {
+    return {
+      treeFilter: "",
+      treeData: this.fetchTreeData(),
+      treeOptions: {
+        propertyNames: { text: "name" },
+        filter: { emptyText: "Category not found." },
+      },
+    };
+  },
   computed: {
     ...mapGetters(["isMenuOpen"]),
+  },
+  methods: {
+    ...mapActions(["toggleMenu"]),
+    fetchTreeData() {
+      this.$http.get("/categories/tree").then((response) => response.data);
+    },
+    onNodeSelect(node) {
+      this.$router.push({
+        name: "articlesByCategory",
+        params: { id: node.id },
+      });
+
+      if (this.$mq === "xs" || this.$mq === "sm") {
+        this.toggleMenu(false);
+      }
+    },
+  },
+  mounted() {
+    this.$refs.tree.$on("node:selected", this.onNodeSelect);
   },
 };
 </script>

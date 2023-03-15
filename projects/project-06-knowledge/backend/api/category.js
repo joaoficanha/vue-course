@@ -77,13 +77,15 @@ module.exports = (app) => {
 
   const remove = async (req, res) => {
     try {
-      const subCategory = app
+      const subCategory = await app
         .db("categories")
         .where({ parentId: req.params.id });
 
       notExists(subCategory, "Category has subcategories.");
 
-      const articles = app.db("articles").where({ categoryId: req.params.id });
+      const articles = await app
+        .db("articles")
+        .where({ categoryId: req.params.id });
 
       notExists(articles, "Category has articles.");
 
@@ -94,9 +96,9 @@ module.exports = (app) => {
 
       exists(deletedRows, "Category not found.");
 
-      return res.status(204).send();
+      res.status(204).send();
     } catch (error) {
-      return res.status(400).send(error);
+      res.status(400).send(error);
     }
   };
 

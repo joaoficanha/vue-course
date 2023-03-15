@@ -4,7 +4,7 @@ export default {
     user: {
       name: "John Doe",
       email: "john.doe@temp.mail",
-      admin: true
+      admin: true,
     },
   },
   getters: {
@@ -16,8 +16,9 @@ export default {
     },
   },
   mutations: {
-    toggleMenu(state) {
-      state.isMenuOpen = !state.isMenuOpen;
+    toggleMenu(state, payload) {
+      state.isMenuOpen =
+        typeof payload === "boolean" ? payload : !state.isMenuOpen;
     },
   },
   actions: {
