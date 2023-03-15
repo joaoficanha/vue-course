@@ -1,7 +1,12 @@
 <template>
   <b-container fluid>
-    <app-articles-form />
-    <app-articles-table />
+    <app-articles-form :article="article" :mode="mode" :reset="reset" />
+    <app-articles-table
+      :articles="articles"
+      :loadArticle="loadArticle"
+      :page="page"
+      :changePage="changePage"
+    />
   </b-container>
 </template>
 
@@ -14,6 +19,41 @@ export default {
   components: {
     "app-articles-form": ArticlesForm,
     "app-articles-table": ArticlesTable,
+  },
+  data() {
+    return {
+      mode: "save",
+      page: 1,
+      article: {},
+      articles: {},
+    };
+  },
+  methods: {
+    fetchArticles() {
+      this.$http.get(`/articles?page=${this.page}`).then((response) => {
+        this.articles = response.data;
+      });
+    },
+    loadArticle(article, mode = "save") {
+      this.mode = mode;
+      this.article = { ...article };
+    },
+    changePage(page) {
+      this.page = page;
+    },
+    reset() {
+      this.mode = "save";
+      this.article = {};
+      this.fetchArticles();
+    },
+  },
+  mounted() {
+    this.fetchArticles();
+  },
+  watch: {
+    page() {
+      this.fetchArticles();
+    },
   },
 };
 </script>

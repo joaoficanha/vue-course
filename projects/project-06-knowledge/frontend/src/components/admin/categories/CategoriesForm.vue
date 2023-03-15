@@ -15,7 +15,7 @@
         </b-form-group>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row v-if="mode === 'save'">
       <b-col>
         <b-form-group label="Parent category:" label-for="category-parentId">
           <b-form-select

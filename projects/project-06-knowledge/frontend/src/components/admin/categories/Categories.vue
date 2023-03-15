@@ -34,13 +34,11 @@ export default {
   methods: {
     fetchCategories() {
       this.$http.get("/categories").then((response) => {
-        this.categories = response.data
-          // .filter((category) => !category.parentId)
-          .map((item) => ({
-            ...item,
-            value: item.id,
-            text: item.name,
-          }));
+        this.categories = response.data.map((item) => ({
+          ...item,
+          value: item.id,
+          text: item.path,
+        }));
       });
     },
     reset() {
