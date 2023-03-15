@@ -1,8 +1,8 @@
 const admin = require("./admin");
 
 module.exports = (app) => {
-  app.route("/auth/signup").post(app.api.user.persist);
-  app.route("/auth/signin").post(app.api.auth.signin);
+  app.route("/auth/register").post(app.api.user.persist);
+  app.route("/auth/login").post(app.api.auth.login);
   app.route("/auth/validateToken").post(app.api.auth.validateToken);
 
   app
