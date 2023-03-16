@@ -34,9 +34,14 @@ export default {
         this.articles = response.data;
       });
     },
+    fetchArticle(articleId) {
+      this.$http.get(`/articles/${articleId}`).then((response) => {
+        this.article = response.data;
+      });
+    },
     loadArticle(article, mode = "save") {
       this.mode = mode;
-      this.article = { ...article };
+      this.fetchArticle(article.id);
     },
     changePage(page) {
       this.page = page;

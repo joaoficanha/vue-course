@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { userKey } from "../../global";
+import { mapGetters, mapActions } from "vuex";
 
 import Gravatar from "vue-gravatar";
 
@@ -25,6 +26,14 @@ export default {
   name: "app-user-dropdown",
   components: { "app-avatar": Gravatar },
   computed: { ...mapGetters(["user"]) },
+  methods: {
+    ...mapActions(["setUser"]),
+    logout() {
+      localStorage.removeItem(userKey);
+      this.setUser(null);
+      this.$router.push({ path: "/login" });
+    },
+  },
 };
 </script>
 

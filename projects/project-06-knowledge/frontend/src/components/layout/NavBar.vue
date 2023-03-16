@@ -42,7 +42,9 @@ export default {
   methods: {
     ...mapActions(["toggleMenu"]),
     fetchTreeData() {
-      this.$http.get("/categories/tree").then((response) => response.data);
+      return this.$http
+        .get("/categories/tree")
+        .then((response) => response.data);
     },
     onNodeSelect(node) {
       this.$router.push({

@@ -1,28 +1,15 @@
 <template>
   <div class="page-title">
-      <h1><i v-if="icon" :class="icon"></i> {{ title }}</h1>
-      <h2>{{ subtitle }}</h2>
-      <hr>
+    <h1><i v-if="icon" :class="icon"></i> {{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
+    <hr />
   </div>
 </template>
 
 <script>
 export default {
   name: "app-page-title",
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    subtitle: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      required: true,
-    },
-  },
+  props: ["title", "subtitle", "icon"],
 };
 </script>
 

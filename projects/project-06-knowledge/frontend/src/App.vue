@@ -1,19 +1,22 @@
 <template>
-	<div id="app" :class="{ 'hide-menu': !isMenuOpen || !user }">
-		<app-bar title="Knowledge Base" />
-		<app-nav-bar />
-		<app-content />
-		<app-footer />
-	</div>
+  <div id="app" :class="{ 'hide-menu': !isMenuOpen || !user }">
+    <app-bar title="Knowledge Base" />
+    <app-nav-bar v-if="user" />
+    <app-loading v-if="isValidatingToken" />
+    <app-content v-else />
+    <app-footer />
+  </div>
 </template>
-  
+
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import { userKey } from "./global";
 
 import AppBar from "./components/layout/AppBar.vue";
 import NavBar from "./components/layout/NavBar.vue";
 import Footer from "./components/layout/Footer.vue";
 import Content from "./components/layout/Content.vue";
+import Loading from "./components/layout/Loading.vue";
 
 export default {
   name: "App",
@@ -22,13 +25,51 @@ export default {
     "app-nav-bar": NavBar,
     "app-content": Content,
     "app-footer": Footer,
+    "app-loading": Loading,
+  },
+  data() {
+    return {
+      isValidatingToken: true,
+    };
   },
   computed: {
     ...mapGetters(["isMenuOpen", "user"]),
   },
+  methods: {
+    ...mapActions(["setUser", "toggleMenu"]),
+    async validateToken() {
+      this.isValidatingToken = true;
+      const user = localStorage.getItem(userKey);
+      const parsedUser = JSON.parse(user);
+      this.setUser(null);
+
+      if (!parsedUser) {
+        this.isValidatingToken = false;
+        return this.$router.push({ path: "/login" });
+      }
+
+      const response = await this.$http.post("/auth/validateToken", parsedUser);
+
+      if (response.data) {
+        this.setUser(parsedUser);
+
+        if (this.$mq === "xs" || this.$mq === "sm") {
+          this.toggleMenu(false);
+        }
+      } else {
+        localStorage.removeItem(userKey);
+        this.$router.push({ path: "/login" });
+      }
+
+      this.isValidatingToken = false;
+    },
+  },
+  created() {
+    this.validateToken();
+  },
 };
 </script>
-  
+
 <style>
 * {
   font-family: "Lato", sans-serif;

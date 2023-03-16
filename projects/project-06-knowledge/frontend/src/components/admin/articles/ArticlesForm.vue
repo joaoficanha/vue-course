@@ -28,7 +28,7 @@
         </b-form-group>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row v-if="mode === 'save'">
       <b-col>
         <b-form-group label="Image (URL)" label-for="article-imageUrl">
           <b-input
@@ -66,13 +66,12 @@
         </b-form-group>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row v-if="mode === 'save'">
       <b-col>
         <b-form-group label="Content:" label-for="article-content">
           <vue-editor
             v-model="article.content"
             placeholder="Inform the article content..."
-            :disabled="mode === 'delete'"
           />
         </b-form-group>
       </b-col>
@@ -124,7 +123,7 @@ export default {
       this.$http.get("/users").then((response) => {
         this.authors = response.data.map((item) => ({
           value: item.id,
-          text: item.name,
+          text: `${item.name} - ${item.email}`,
         }));
       });
     },

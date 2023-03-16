@@ -1,18 +1,17 @@
 <template>
   <header class="header">
-    <a class="toggle" @click="toggleMenu">
-      <i class="fa fa-lg" 
-      :class="icon"></i>
+    <a class="toggle" @click="toggleMenu" v-if="user">
+      <i class="fa fa-lg" :class="icon"></i>
     </a>
     <h1 class="title">
       <router-link to="/">{{ title }}</router-link>
     </h1>
-    <app-user-dropdown v-if="!hideDropdown" />
+    <app-user-dropdown v-if="user" />
   </header>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import UserDropdown from "./UserDropdown.vue";
 
 export default {
@@ -27,17 +26,13 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["isMenuOpen", "user"]),
     icon() {
-      return this.$store.getters.isMenuOpen ? "fa-angle-left" : "fa-angle-down";
+      return this.isMenuOpen ? "fa-angle-left" : "fa-angle-down";
     },
   },
   methods: {
     ...mapActions(["toggleMenu"]),
-  },
-  data() {
-    return {
-      hideDropdown: false,
-    };
   },
 };
 </script>
